@@ -1,0 +1,571 @@
+<!doctype html>
+<html class="no-js" lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>sintecnis | Automatización de Leads y Captación de Clientes</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+    <!-- ========================================== -->
+    <!-- FAVICONS (Configurados para evitar el aplastamiento) -->
+    <!-- ========================================== -->
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="site.webmanifest">
+    <link rel="mask-icon" href="safari-pinned-tab.svg" color="#01c38e">
+    <meta name="msapplication-TileColor" content="#0b0d12">
+    <meta name="theme-color" content="#0b0d12">
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="css/fontAwesome.css">
+    
+    <!-- Fuente Moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    
+    <style>
+        /* =========================================
+           ESTILOS MODERNOS OSCUROS - SINTECNIS
+           ========================================= */
+        :root {
+            --bg-dark: #0b0d12;
+            --bg-card: #1a1e29;
+            --accent: #01c38e;
+            --accent-hover: #01a376;
+            --text-white: #ffffff;
+            --text-grey: #a0a8b8;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark) !important;
+            color: var(--text-white) !important;
+            overflow-x: hidden;
+        }
+
+        /* 1. FONDO DE VIDEO OSCURECIDO */
+        .top-part {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+            top: 0;
+            left: 0;
+            background-color: var(--bg-dark);
+        }
+
+        .top-part video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0.3;
+            filter: blur(2px) brightness(0.8);
+        }
+
+        .overlay {
+            background: linear-gradient(180deg, rgba(11,13,18,0.9) 0%, rgba(11,13,18,0.7) 50%, rgba(11,13,18,0.95) 100%) !important;
+            z-index: -1 !important;
+        }
+
+        /* 2. NAVEGACIÓN MODERNA */
+        .navbar-modern {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(11, 13, 18, 0.8) !important;
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-modern .nav-links {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar-modern .nav-links li a {
+            color: var(--text-grey) !important;
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .navbar-modern .nav-links li a:hover,
+        .navbar-modern .nav-links li.selected a,
+        .navbar-modern .nav-links li.active a {
+            color: var(--accent) !important;
+            text-shadow: 0 0 10px rgba(1, 195, 142, 0.4);
+        }
+
+        .brand-logo {
+            position: absolute;
+            left: 20px;
+            top: 15px;
+            font-size: 20px;
+            font-weight: 800;
+            color: var(--text-white) !important;
+            letter-spacing: 1px;
+        }
+        .brand-logo span {
+            color: var(--accent);
+        }
+
+        /* 3. ESTRUCTURA DEL CONTENIDO - Slides con Display */
+        .cd-hero {
+            background: transparent !important;
+            padding-top: 120px;
+        }
+
+        .cd-hero-slider {
+            position: relative;
+            width: 100%;
+            min-height: 100vh;
+        }
+
+        /* IMPORTANTE: Cada slide oculto por defecto */
+        .cd-hero-slider li {
+            display: none;
+            min-height: 100vh;
+        }
+
+        /* El slide seleccionado se muestra */
+        .cd-hero-slider li.selected {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Títulos */
+        .heading {
+            margin-bottom: 60px !important;
+            text-align: center;
+        }
+
+        .heading h1 {
+            font-size: 64px;
+            font-weight: 800;
+            letter-spacing: -2px;
+            text-transform: uppercase;
+            background: linear-gradient(to right, #fff, #a0a8b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 15px;
+        }
+
+        .heading span {
+            font-size: 18px;
+            color: var(--accent) !important;
+            font-weight: 300;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        /* 4. TARJETAS MINIMALISTAS */
+        .content {
+            background-color: rgba(26, 30, 41, 0.6) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-top: 3px solid var(--accent) !important;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5) !important;
+            padding: 60px !important;
+            margin-bottom: 0 !important;
+            margin-top: 0 !important;
+            max-width: 1000px;
+            margin: 0 auto !important;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content h4 {
+            font-size: 28px;
+            font-weight: 700;
+            color: var(--text-white) !important;
+            margin-bottom: 20px;
+        }
+
+        .content p {
+            font-size: 16px;
+            color: var(--text-grey) !important;
+            line-height: 1.8;
+            margin-bottom: 30px;
+        }
+
+        /* Botones modernos */
+        .primary-button a, 
+        .btn-modern {
+            display: inline-block;
+            background-color: var(--accent) !important;
+            color: #0b0d12 !important;
+            font-weight: 700 !important;
+            padding: 15px 40px !important;
+            border-radius: 50px !important;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 14px;
+            border: none !important;
+            transition: all 0.3s ease;
+        }
+
+        .primary-button a:hover,
+        .btn-modern:hover {
+            background-color: var(--accent-hover) !important;
+            color: #fff !important;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(1, 195, 142, 0.3);
+        }
+
+        /* 5. FORMULARIO MODERNO */
+        .fivth-content input, 
+        .fivth-content textarea {
+            background-color: rgba(0,0,0,0.3) !important;
+            border: 1px solid rgba(255,255,255,0.1) !important;
+            border-radius: 8px !important;
+            color: var(--text-white) !important;
+            padding: 15px !important;
+            height: auto !important;
+            line-height: 1.5 !important;
+            font-size: 15px !important;
+        }
+
+        .fivth-content input:focus, 
+        .fivth-content textarea:focus {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 0 3px rgba(1, 195, 142, 0.2) !important;
+            outline: none !important;
+        }
+
+        /* 6. FOOTER OSCURO */
+        footer {
+            background-color: var(--bg-dark) !important;
+            border-top: 1px solid rgba(255,255,255,0.05) !important;
+            position: relative;
+            z-index: 100;
+            padding: 30px 0;
+        }
+
+        footer p {
+            color: var(--text-grey) !important;
+            font-size: 14px;
+            font-weight: 300;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* 7. OCULTAR EL MENÚ ANTIGUO */
+        .cd-slider-nav {
+            display: none !important;
+        }
+
+        /* 8. MENSAJE DE ÉXITO DEL FORMULARIO */
+        #success-message {
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        #success-message i.fa-check {
+            animation: popIn 0.5s ease-out 0.2s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes popIn {
+            0% { transform: scale(0); }
+            70% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .heading h1 { font-size: 40px; }
+            .navbar-modern .nav-links { gap: 20px; }
+            .brand-logo { display: none; }
+            .content { padding: 30px !important; margin: 0 20px !important; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Fondo de Video Oscurecido -->
+    <div class="overlay"></div>
+    <section class="top-part">
+        <video autoplay loop muted playsinline>
+            <source src="videos/video.mp4" type="video/mp4">
+        </video>
+    </section>
+
+    <!-- Menú de Navegación Moderno -->
+    <nav class="navbar-modern">
+        <a href="#" class="brand-logo">SIN<span>TECNIS</span></a>
+        <ul class="nav-links">
+            <li class="selected"><a href="#0">Inicio</a></li>
+            <li><a href="#0">Nosotros</a></li>
+            <li><a href="#0">Servicios</a></li>
+            <li><a href="#0">Proyectos</a></li>
+            <li><a href="#0">Contacto</a></li>
+        </ul>
+    </nav>
+
+    <!-- Contenido Principal -->
+    <section class="cd-hero">
+        <ul class="cd-hero-slider">
+
+            <!-- SLIDE 1: INICIO -->
+            <li class="selected">
+                <div class="container">
+                    <div class="heading">
+                        <h1>Automatiza tus Leads</h1>
+                        <span>Y multiplica tus ventas</span>
+                    </div>
+                    <div class="content first-content">
+                        <h4>Bienvenido a Sintecnis</h4>
+                        <p>En Sintecnis transformamos visitas en clientes potenciales mediante sistemas de automatización inteligentes. Ahorra tiempo, reduce costos y aumenta tu conversión con nuestra tecnología de vanguardia.</p>
+                        <div class="primary-button">
+                            <a href="#">Solicitar Demo</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!-- SLIDE 2: NOSOTROS -->
+            <li>
+                <div class="container">
+                    <div class="heading">
+                        <h1>¿Quiénes Somos?</h1>
+                        <span>Expertos en crecimiento</span>
+                    </div>
+                    <div class="content second-content">
+                        <h4>Misión y Visión</h4>
+                        <p>Somos un equipo de especialistas en marketing digital y desarrollo tecnológico. Nuestra misión es impulsar a las empresas a alcanzar su máximo potencial digital mediante la automatización de procesos comerciales.</p>
+                        <div class="primary-button">
+                            <a href="#">Conoce al Equipo</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!-- SLIDE 3: SERVICIOS -->
+            <li>
+                <div class="container">
+                    <div class="heading">
+                        <h1>Soluciones</h1>
+                        <span>Todo en uno</span>
+                    </div>
+                    <div class="content third-content">
+                        <h4>Nuestros Servicios</h4>
+                        <p>Implementamos sistemas de captación de leads, chatbots inteligentes, email marketing automatizado y seguimiento de clientes mediante CRM. Todo para que tu negocio no dependa de procesos manuales.</p>
+                        <ul style="list-style: none; padding: 0; margin-bottom: 30px;">
+                            <li style="color: var(--accent); margin-bottom: 10px;">✓ Generación de leads calificados</li>
+                            <li style="color: var(--accent); margin-bottom: 10px;">✓ Integración con WhatsApp y Redes</li>
+                            <li style="color: var(--accent); margin-bottom: 10px;">✓ Analítica en tiempo real</li>
+                        </ul>
+                        <div class="primary-button">
+                            <a href="#">Ver Planes</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!-- SLIDE 4: PROYECTOS -->
+            <li>
+                <div class="container">
+                    <div class="heading">
+                        <h1>Resultados</h1>
+                        <span>Casos de éxito</span>
+                    </div>
+                    <div class="content fourth-content">
+                        <h4>Lo que hemos logrado</h4>
+                        <p>Hemos ayudado a más de 50 empresas a automatizar sus ventas, generando más de 10,000 leads calificados en el último año. Nuestro enfoque es simple: resultados medibles y escalables.</p>
+                        <div class="primary-button">
+                            <a href="#">Portafolio</a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+            <!-- SLIDE 5: CONTACTO -->
+            <li>
+                <div class="container">
+                    <div class="heading">
+                        <h1>Hablemos</h1>
+                        <span>Tu crecimiento empieza aquí</span>
+                    </div>
+                    <div class="content fivth-content">
+                        <h4>Contáctanos</h4>
+                        <p style="max-width: 500px;">Cuéntanos sobre tu negocio y te diseñaremos una estrategia de automatización a medida. Respondemos en menos de 24 horas.</p>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <form id="contact" action="https://hook.eu1.make.com/nskpr2016ak9xm599ajx19p2qz8hq71o" method="post">
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <input name="name" type="text" class="form-control" id="name" placeholder="Tu Nombre" required="">
+                                        </div>
+                                        <div class="col-md-6">
+                                            <input name="email" type="email" class="form-control" id="email" placeholder="Tu Email" required="">
+                                        </div>
+                                        <div class="col-md-12">
+                                            <textarea name="message" rows="4" class="form-control" id="message" placeholder="Cuéntanos sobre tu proyecto..." required=""></textarea>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <button type="submit" class="btn-modern" style="border:none; cursor:pointer;">Enviar Mensaje</button>
+                                        </div>
+                                    </div>
+                                </form>
+
+                                <!-- Mensaje de éxito (oculto por defecto) -->
+                                <div id="success-message" style="display: none; text-align: center; padding: 40px 0;">
+                                    <div style="display: inline-block; width: 80px; height: 80px; line-height: 80px; border-radius: 50%; background-color: var(--accent); margin-bottom: 25px;">
+                                        <i class="fa fa-check" style="font-size: 36px; color: #0b0d12;"></i>
+                                    </div>
+                                    <h3 style="color: var(--text-white); font-size: 28px; font-weight: 700; margin-bottom: 15px;">¡Mensaje Enviado!</h3>
+                                    <p style="color: var(--text-grey); font-size: 16px; max-width: 500px; margin: 0 auto 30px auto; line-height: 1.6;">Gracias por contactarnos. Hemos recibido tu información y te responderemos en menos de 24 horas.</p>
+                                    <a href="#0" id="reset-form-btn" class="btn-modern" style="text-decoration:none;">Enviar otro mensaje</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+
+        </ul>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2023 Sintecnis. Todos los derechos reservados. | Diseñado por <a href="#" style="color: var(--accent); text-decoration:none;">Sintecnis Team</a></p>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/vendor/jquery-1.11.2.min.js"></script>
+    <script src="js/vendor/bootstrap.min.js"></script>
+    <script src="js/plugins.js"></script>
+    
+    <!-- Script inline: Función en todos los navegadores, sin depender de jQuery -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var slidesWrapper = document.querySelector('.cd-hero-slider');
+            var navLinks = document.querySelectorAll('.navbar-modern .nav-links li');
+
+            // Función para cambiar de slide
+            function showSlide(index) {
+                var slides = slidesWrapper.children;
+
+                // Quitar 'selected' de todos los slides y menú
+                for (var i = 0; i < slides.length; i++) {
+                    slides[i].classList.remove('selected');
+                }
+                for (var j = 0; j < navLinks.length; j++) {
+                    navLinks[j].classList.remove('selected', 'active');
+                }
+
+                // Añadir 'selected' al slide y menú correspondiente
+                slides[index].classList.add('selected');
+                navLinks[index].classList.add('selected');
+            }
+
+            // Evento click en los enlaces del menú
+            for (var k = 0; k < navLinks.length; k++) {
+                navLinks[k].querySelector('a').addEventListener('click', function(event) {
+                    event.preventDefault();
+                    
+                    var parentLi = this.parentNode;
+                    var links = document.querySelectorAll('.navbar-modern .nav-links li');
+                    var index = Array.prototype.indexOf.call(links, parentLi);
+
+                    // Si ya está seleccionado, no hacer nada
+                    if (parentLi.classList.contains('selected')) return;
+
+                    showSlide(index);
+                });
+            }
+
+            // Inicializar la primera diapositiva como seleccionada
+            showSlide(0);
+        });
+    </script>
+
+    <!-- Script para el envío del formulario sin redirección -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var form = document.getElementById('contact');
+            var successMessage = document.getElementById('success-message');
+            var resetBtn = document.getElementById('reset-form-btn');
+
+            if (form) {
+                form.addEventListener('submit', function(event) {
+                    // 1. Evita que la página se redirija al webhook
+                    event.preventDefault();
+
+                    // 2. Cambiar el botón a estado "Enviando..."
+                    var submitButton = form.querySelector('button[type="submit"]');
+                    var originalButtonText = submitButton.innerHTML;
+                    submitButton.innerHTML = 'Enviando...';
+                    submitButton.disabled = true;
+                    submitButton.style.opacity = '0.7';
+
+                    // 3. Enviar los datos al webhook con fetch (en segundo plano)
+                    var formData = new FormData(form);
+
+                    fetch(form.action, {
+                        method: 'POST',
+                        body: formData,
+                        mode: 'no-cors' // Importante para webhooks externos como Make.com
+                    })
+                    .then(function() {
+                        // 4. Éxito: Ocultar formulario y mostrar mensaje
+                        form.style.display = 'none';
+                        successMessage.style.display = 'block';
+
+                        // Restaurar el botón por si el usuario quiere volver a enviar
+                        submitButton.innerHTML = originalButtonText;
+                        submitButton.disabled = false;
+                        submitButton.style.opacity = '1';
+                        form.reset();
+                    })
+                    .catch(function(error) {
+                        // 5. Error: Mostrar alerta y restaurar el botón
+                        console.error('Error:', error);
+                        alert('Hubo un problema al enviar tu mensaje. Por favor, inténtalo de nuevo.');
+                        submitButton.innerHTML = originalButtonText;
+                        submitButton.disabled = false;
+                        submitButton.style.opacity = '1';
+                    });
+                });
+            }
+
+            // Botón para volver a mostrar el formulario
+            if (resetBtn) {
+                resetBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    successMessage.style.display = 'none';
+                    form.style.display = 'block';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
