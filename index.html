@@ -13,6 +13,7 @@
     <meta name="description" content="Consultoría de automatización de procesos con Make, APIs y sistemas de captación de leads para empresas. Ahorra horas de trabajo manual.">
 
     <!-- Google reCAPTCHA v3 (Pega aquí tu script con tu Site Key pública) -->
+     <script src="https://www.google.com/recaptcha/api.js?render=6LdymyMuAAAAAO7fPjO7Dd2IUIYKH5w0hFWLrXYZ"></script>
     <!-- <script src="https://www.google.com/recaptcha/api.js?render=6LcXAQUuAAAAAJaiqwpPEfkSgPpl6sPxqFCcwkRI"></script> -->
 
     <!-- Favicons -->
@@ -547,7 +548,7 @@
                     // Ejecutar reCAPTCHA si está cargado; si falla o está bloqueado, permitir envío controlado
                     if (typeof grecaptcha !== 'undefined') {
                         grecaptcha.ready(function() {
-                            grecaptcha.execute('6LcXAQUuAAAAAJaiqwpPEfkSgPpl6sPxqFCcwkRI', {action: 'submit'})
+                            grecaptcha.execute('6LdymyMuAAAAAO7fPjO7Dd2IUIYKH5w0hFWLrXYZ', {action: 'submit'})
                                 .then(function(token) {
                                     sendWebhook(token);
                                 })
